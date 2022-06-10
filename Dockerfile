@@ -1,4 +1,4 @@
-FROM fedora
+FROM fedora:34
 
 RUN yum -y update && yum -y install --allowerasing \
     git \
