@@ -1,0 +1,23 @@
+name: Build release
+on:
+  push:
+    tags:
+      - r*
+  pull_request: {}
+
+jobs:
+  container:
+    timeout-minutes: 20
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: docker/setup-buildx-action@v1
+
+      - uses: ./.github/actions/build-container
+        with:
+          basename: tpm2-simulator
+          dockerfile: ./Dockerfile
+          cr_token: ${{ secrets.CR_TOKEN }}
